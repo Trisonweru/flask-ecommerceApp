@@ -1,0 +1,32 @@
+{% extends "layout.html"%} {%block content%}
+<div class="container">
+  <div class="row mt-">
+    <div class="col-md-2 mt-4"></div>
+    <div class="col-md-8">
+      {% include "_msgs.html"%}
+      <div class="text-center h1 mb-3" style="color: brown">Register</div>
+      {% from "_formhelpers.html" import render_field %}
+      <form method="post" enctype="multipart/form-data">
+        <div>
+          {{ render_field(form.name, class="form-control", placeholder="Name")
+          }} {{ render_field(form.username, class="form-control",
+          placeholder="Username") }} {{ render_field(form.email,
+          class="form-control", placeholder="Email") }} {{
+          render_field(form.password, class="form-control",
+          placeholder="Password") }} {{ render_field(form.confirm,
+          class="form-control", placeholder="Confirm password") }} {{
+          render_field(form.country, class="form-control", placeholder="Your
+          country") }} {{ render_field(form.city, class="form-control",
+          placeholder="Your city") }} {{ render_field(form.contact,
+          class="form-control", placeholder="Your contact") }} {{
+          render_field(form.address, class="form-control", placeholder="Your
+          address") }} {{ render_field(form.zipcode, class="form-control",
+          placeholder="Your zip code") }} {{ render_field(form.submit,
+          class="form-control") }}
+        </div>
+      </form>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
+{%endblock content%}

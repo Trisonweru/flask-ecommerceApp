@@ -1,0 +1,99 @@
+{% extends "layout.html"%} {% block content%} {% include "_msgs.html"%}
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Home</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/"
+            >All products <span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li class="nav-item" style="visibility: hidden">
+          <a class="nav-link" href="{{url_for('cart')}}"
+            >Cart ({{session['ShoppingCart']|length}})</a
+          >
+        </li>
+      </ul>
+
+      <form class="form-inline my-2 my-lg-0">
+        <input
+          class="form-control mr-sm-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          Search
+        </button>
+      </form>
+    </div>
+  </nav>
+</div>
+<div class="container">
+  <div class="row">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Color</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Discount</th>
+          <th scope="col">Subtotal</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for key, product in session['ShoppingCart'].items()%} {% set
+        discount="%0.2f"| format((product.discount/100)* product.price|float) %}
+        <tr>
+          <th scope="row">{{loop.index}}</th>
+          <td>{{product.name}}</td>
+          <td>{{product.colors}}</td>
+          <td>{{product.quantity}}</td>
+          <td>${{product.price}}</td>
+          {%if product.discount > 0%}
+          <td>{{product.discount}}%</td>
+          {%else%}
+          <td></td>
+          {%endif%} {%set subtotal=product.quantity|int * product.price|float %}
+          <td>${{"%0.2f"|format((subtotal|float)- discount|float)}}</td>
+          <td>
+            <a
+              href="{{url_for('deleteitem', id=key)}}"
+              class="btn btn-sm btn-outline-danger"
+              >Delete</a
+            >
+          </td>
+        </tr>
+        {%endfor%}
+        <tr>
+          <td></td>
+          <td><a href="/">Continue shopping</a></td>
+          <td colspan=""></td>
+          <td colspan="3"><h5>Total: ${{total}}</h5></td>
+          <td>
+            <a href="{{url_for('orders')}}" class="btn btn-outline-info"
+              >Proceed to checkout</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{%endblock%}

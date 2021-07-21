@@ -1,0 +1,25 @@
+{% extends "layout.html"%} {%block content%} {% include "_msgs.html"%} {%
+include "_msgs.html"%}
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="text-center h1 mb-3" style="color: brown">Orders</div>
+      <table class="table table-sm table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Invoice</th>
+            <th scope="col">Status</th>
+            <th scope="col">Date created</th>
+            <th scope="col">Products</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
+
+{%endblock content%}
